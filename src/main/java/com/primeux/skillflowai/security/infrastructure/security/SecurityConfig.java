@@ -1,9 +1,5 @@
-package com.primeux.skillflowai.security.infrastructure.config;
+package com.primeux.skillflowai.security.infrastructure.security;
 
-import com.primeux.skillflowai.security.infrastructure.security.SkillflowUserDetails;
-import com.primeux.skillflowai.security.infrastructure.security.jwt.JwtAuthFilter;
-import com.primeux.skillflowai.users.domain.model.Email;
-import com.primeux.skillflowai.users.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,8 +33,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final UserRepository userRepository;
-
+    private final UserDetailsService userDetailsService;
 
     @Value("${frontend.url}")
     private String frontendUrl;
@@ -52,12 +46,13 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(c -> c.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/login").permitAll();  // TODO: check, welche User/Rollen welchen Zugriff haben
+                    auth.requestMatchers("/auth/login").permitAll();
+                    auth.requestMatchers("/register").permitAll();
                     auth.requestMatchers("/error").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .userDetailsService(userDetailsService())
+                .userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -81,11 +76,6 @@ public class SecurityConfig {
         return urlBasedCorsConfigurationSource;
     }
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(new Email(username)).map(SkillflowUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", username)));
-    }
-
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -95,7 +85,7 @@ public class SecurityConfig {
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;

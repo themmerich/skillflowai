@@ -5,6 +5,7 @@ import com.primeux.skillflowai.users.domain.model.Password;
 import com.primeux.skillflowai.users.domain.model.User;
 import com.primeux.skillflowai.users.domain.model.UserId;
 import com.primeux.skillflowai.users.infrastructure.db.jpa.UserEntity;
+import com.primeux.skillflowai.users.presentation.dto.UserReadDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -22,7 +23,6 @@ public interface UserMapper {
     @Mapping(target = "organizationId", ignore = true)
     User toUser(UserEntity source);
 
-
     @Named("userId")
     default UserId toUserId(UUID id) {
         return new UserId(id);
@@ -37,4 +37,13 @@ public interface UserMapper {
     default Password toPassword(String password) {
         return Password.of(password);
     }
+
+    @Mapping(target = "id", source = "id.id")
+    @Mapping(target = "email", source = "source.email.email")
+    @Mapping(target = "password", source = "source.password.password")
+    @Mapping(target = "roles", ignore = true)
+    UserEntity toUserEntity(User source);
+
+    @Mapping(target = "email", source = "source.email.email")
+    UserReadDto toReadDto(User source);
 }

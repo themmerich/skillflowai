@@ -1,6 +1,5 @@
-package com.primeux.skillflowai.security.infrastructure.security.jwt;
+package com.primeux.skillflowai.security.infrastructure.security;
 
-import com.primeux.skillflowai.security.infrastructure.security.SkillflowUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -20,7 +19,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtUtils {
+class JwtUtils {
 
     private static final String CLAIM_AUTHORITIES = "authorities";
 

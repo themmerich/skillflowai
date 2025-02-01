@@ -27,4 +27,9 @@ class UserJpaRepository implements UserRepository {
     public Optional<User> findByEmail(Email email) {
         return userJpaRepository.findByEmail(email.email()).map(userMapper::toUser);
     }
+
+    public User save(User user) {
+        UserEntity saved = userJpaRepository.save(userMapper.toUserEntity(user));
+        return userMapper.toUser(saved);
+    }
 }

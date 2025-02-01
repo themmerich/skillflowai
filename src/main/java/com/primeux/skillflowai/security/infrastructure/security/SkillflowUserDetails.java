@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Objects;
 
-public class SkillflowUserDetails implements UserDetails {
+class SkillflowUserDetails implements UserDetails {
     private final User user;
 
     public SkillflowUserDetails(User user) {

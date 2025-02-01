@@ -3,7 +3,6 @@ package com.primeux.skillflowai.security.infrastructure.security;
 import com.primeux.skillflowai.security.application.dto.LoginResponseDto;
 import com.primeux.skillflowai.security.application.dto.LoginUserDto;
 import com.primeux.skillflowai.security.domain.service.AuthenticationService;
-import com.primeux.skillflowai.security.infrastructure.security.jwt.JwtUtils;
 import com.primeux.skillflowai.users.domain.model.Email;
 import com.primeux.skillflowai.users.domain.model.Permission;
 import com.primeux.skillflowai.users.domain.model.Role;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SpringSecurityAuthenticationService implements AuthenticationService {
+class SpringSecurityAuthenticationService implements AuthenticationService {
 
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
@@ -30,13 +29,13 @@ public class SpringSecurityAuthenticationService implements AuthenticationServic
         return new LoginResponseDto(token, jwtUtils.getExpirationInMs());
     }
 
-    //TODO: Refactoring -> in eigenen Security-Service verschieben und nicht im Controller lassen!
     private SkillflowUserDetails getUserDetails(LoginUserDto loginUserDto) {
         User user = userRepository.findByEmail(Email.of(loginUserDto.getEmail())).orElseThrow(() -> new RuntimeException(String.format("User %s not found", loginUserDto.getEmail())));
         user.getRoles().add(createTestRole(UserPermission.USER_READ));
         return new SkillflowUserDetails(user);
     }
 
+    //TODO Permissions aus der DB auslesen und setzen
     private Role createTestRole(String permission) {
         Role role = new Role();
         role.getPermissions().add(createTestPermission(permission));

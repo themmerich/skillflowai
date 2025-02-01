@@ -1,4 +1,4 @@
-package com.primeux.skillflowai.users.application.dto;
+package com.primeux.skillflowai.users.presentation.dto;
 
 import lombok.Data;
 

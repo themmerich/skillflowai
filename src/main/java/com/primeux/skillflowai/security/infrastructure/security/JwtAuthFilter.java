@@ -1,6 +1,5 @@
-package com.primeux.skillflowai.security.infrastructure.security.jwt;
+package com.primeux.skillflowai.security.infrastructure.security;
 
-import com.primeux.skillflowai.security.infrastructure.security.SkillflowUserDetails;
 import com.primeux.skillflowai.users.domain.model.Email;
 import com.primeux.skillflowai.users.domain.model.User;
 import jakarta.servlet.FilterChain;
@@ -24,7 +23,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class JwtAuthFilter extends OncePerRequestFilter {
+class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
 
@@ -35,7 +34,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         // TODO: Oauth2 Prozess implementieren, mit Token-Refresh etc.
-        // TODO: eigenes Security-Modul erstellen, in welchem das ganze Spring Security Zeug usw. gekapselt ist
         // Außerdem beim User einbauen, dass diese inaktiv geschaltet werden können + nach der Registrierung die Email einmal verifiziert werden muss
 
         log.debug("Current auth before processing: {}",
