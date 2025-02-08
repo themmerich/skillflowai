@@ -1,12 +1,12 @@
-package com.primeux.skillflowai.users.infrastructure.persistence.jpa;
+package com.primeux.skillflowai.users.infrastructure.security;
 
 import com.primeux.skillflowai.users.core.domain.model.User;
+import com.primeux.skillflowai.users.infrastructure.persistence.jpa.EntityMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface UserEntityMapper extends EntityMapper {
-
+public interface LoginUserEntityMapper extends EntityMapper {
 
     @Mapping(target = "id", source = "id", qualifiedByName = "userId")
     @Mapping(target = "email", source = "email", qualifiedByName = "email")
@@ -14,13 +14,7 @@ public interface UserEntityMapper extends EntityMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "organizationId", source = "tenantId", qualifiedByName = "organizationId")
     @Mapping(target = "status", ignore = true)
-    User toUser(UserEntity source);
-
-
-    @Mapping(target = "id", source = "id.id")
-    @Mapping(target = "email", source = "source.email.email")
-    @Mapping(target = "password", source = "source.password.password")
-    @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "tenantId", ignore = true)
-    UserEntity toUserEntity(User source);
+    @Mapping(target = "firstName", ignore = true)
+    @Mapping(target = "lastName", ignore = true)
+    User toUser(LoginUserEntity source);
 }

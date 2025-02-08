@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(tenantFilter, JwtAuthFilter.class)
                 .build();
     }
 

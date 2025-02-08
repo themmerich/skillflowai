@@ -11,7 +11,7 @@ import java.util.Set;
 public class User {
 
     private UserId id;
-    private String organizationId;
+    private OrganizationId organizationId;
     private Email email;
     private Password password;
     private String firstName;

@@ -16,6 +16,10 @@ class SkillflowUserDetails implements UserDetails {
         this.user = user;
     }
 
+    public String getTenantId() {
+        return user.getOrganizationId().id().toString();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()

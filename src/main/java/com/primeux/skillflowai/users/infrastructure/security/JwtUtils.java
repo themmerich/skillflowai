@@ -22,6 +22,7 @@ import java.util.function.Function;
 class JwtUtils {
 
     private static final String CLAIM_AUTHORITIES = "authorities";
+    private static final String CLAIM_TENANT_ID = "tenantId";
 
     @Value("${jwt.secret_key}")
     private String secretKey;
@@ -44,6 +45,7 @@ class JwtUtils {
             additionalClaims = new HashMap<>();
         }
         additionalClaims.put(CLAIM_AUTHORITIES, userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+        additionalClaims.put(CLAIM_TENANT_ID, userDetails.getTenantId());
 
         return Jwts.builder()
                 .claims()
@@ -70,6 +72,10 @@ class JwtUtils {
 
     public String getUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public String getTenantIdFromToken(String token) {
+        return extractAllClaims(token).get(CLAIM_TENANT_ID, String.class);
     }
 
     public List<String> getAuthoritiesFromToken(String token) {

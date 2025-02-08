@@ -1,10 +1,8 @@
 package com.primeux.skillflowai.users.infrastructure.security;
 
-import com.primeux.skillflowai.users.core.domain.model.Email;
 import com.primeux.skillflowai.users.core.domain.model.Permission;
 import com.primeux.skillflowai.users.core.domain.model.Role;
 import com.primeux.skillflowai.users.core.domain.model.User;
-import com.primeux.skillflowai.users.core.ports.repositories.UserRepository;
 import com.primeux.skillflowai.users.core.ports.usecases.Authentication;
 import com.primeux.skillflowai.users.presentation.resources.LoginResponseDto;
 import com.primeux.skillflowai.users.presentation.resources.LoginUserDto;
@@ -18,18 +16,20 @@ import org.springframework.stereotype.Service;
 class SpringSecurityAuthentication implements Authentication {
 
     private final JwtUtils jwtUtils;
-    private final UserRepository userRepository;
+    private final SpringDataLoginUserRepository springDataLoginUserRepository;
     private final AuthenticationManager authenticationManager;
+    private final LoginUserEntityMapper userEntityMapper;
 
     public LoginResponseDto authenticate(LoginUserDto loginUserDto) {
         SkillflowUserDetails userDetails = getUserDetails(loginUserDto);
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUserDto.getEmail(), loginUserDto.getPassword(), userDetails.getAuthorities()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails, loginUserDto.getPassword(), userDetails.getAuthorities()));
         String token = jwtUtils.generateToken(userDetails);
         return new LoginResponseDto(token, jwtUtils.getExpirationInMs());
     }
 
     private SkillflowUserDetails getUserDetails(LoginUserDto loginUserDto) {
-        User user = userRepository.findByEmail(Email.of(loginUserDto.getEmail())).orElseThrow(() -> new RuntimeException(String.format("User %s not found", loginUserDto.getEmail())));
+        User user = springDataLoginUserRepository.findByEmail(loginUserDto.getEmail()).map(userEntityMapper::toUser).orElseThrow();
+        //User user = userRepository.findByEmail(Email.of(loginUserDto.getEmail())).orElseThrow(() -> new RuntimeException(String.format("User %s not found", loginUserDto.getEmail())));
         user.getRoles().add(createTestRole("USER_READ"));
         return new SkillflowUserDetails(user);
     }
