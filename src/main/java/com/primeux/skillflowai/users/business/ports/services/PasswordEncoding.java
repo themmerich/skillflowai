@@ -1,4 +1,4 @@
-package com.primeux.skillflowai.users.core.ports.services;
+package com.primeux.skillflowai.users.business.ports.services;
 
 public interface PasswordEncoding {
 

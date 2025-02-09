@@ -1,6 +1,6 @@
 package com.primeux.skillflowai.users.presentation.controller;
 
-import com.primeux.skillflowai.users.core.ports.usecases.Authentication;
+import com.primeux.skillflowai.users.business.ports.usecases.Authentication;
 import com.primeux.skillflowai.users.presentation.resources.LoginResponseDto;
 import com.primeux.skillflowai.users.presentation.resources.LoginUserDto;
 import lombok.RequiredArgsConstructor;

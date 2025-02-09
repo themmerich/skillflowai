@@ -1,8 +1,8 @@
 package com.primeux.skillflowai.users.presentation.controller;
 
-import com.primeux.skillflowai.users.core.domain.model.User;
-import com.primeux.skillflowai.users.core.domain.services.RegisterUserCommand;
-import com.primeux.skillflowai.users.core.domain.services.RegisterUserService;
+import com.primeux.skillflowai.users.business.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.services.RegisterUserCommand;
+import com.primeux.skillflowai.users.business.domain.services.RegisterUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

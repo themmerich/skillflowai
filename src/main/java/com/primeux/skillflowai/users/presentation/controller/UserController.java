@@ -1,8 +1,8 @@
 package com.primeux.skillflowai.users.presentation.controller;
 
 import com.primeux.skillflowai.users.UserPermission;
-import com.primeux.skillflowai.users.core.domain.model.UserId;
-import com.primeux.skillflowai.users.core.ports.usecases.UserManagement;
+import com.primeux.skillflowai.users.business.domain.model.UserId;
+import com.primeux.skillflowai.users.business.ports.usecases.UserManagement;
 import com.primeux.skillflowai.users.presentation.mapper.UserResourcesMapper;
 import com.primeux.skillflowai.users.presentation.resources.UserReadDto;
 import lombok.RequiredArgsConstructor;

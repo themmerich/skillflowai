@@ -1,10 +1,10 @@
-package com.primeux.skillflowai.users.core.domain.services;
+package com.primeux.skillflowai.users.business.domain.services;
 
 import com.primeux.skillflowai.shared.annotation.UseCase;
-import com.primeux.skillflowai.users.core.domain.model.User;
-import com.primeux.skillflowai.users.core.domain.model.UserId;
-import com.primeux.skillflowai.users.core.ports.repositories.UserRepository;
-import com.primeux.skillflowai.users.core.ports.usecases.UserManagement;
+import com.primeux.skillflowai.users.business.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.model.UserId;
+import com.primeux.skillflowai.users.business.ports.repositories.UserRepository;
+import com.primeux.skillflowai.users.business.ports.usecases.UserManagement;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;

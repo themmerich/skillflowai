@@ -1,4 +1,4 @@
-package com.primeux.skillflowai.users.core.domain.model;
+package com.primeux.skillflowai.users.business.domain.model;
 
 
 import java.util.Objects;

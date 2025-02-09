@@ -1,6 +1,6 @@
 package com.primeux.skillflowai.users.infrastructure.persistence.jpa;
 
-import com.primeux.skillflowai.users.core.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

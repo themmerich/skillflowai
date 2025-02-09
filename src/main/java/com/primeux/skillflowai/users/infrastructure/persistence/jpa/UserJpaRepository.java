@@ -1,9 +1,9 @@
 package com.primeux.skillflowai.users.infrastructure.persistence.jpa;
 
-import com.primeux.skillflowai.users.core.domain.model.Email;
-import com.primeux.skillflowai.users.core.domain.model.User;
-import com.primeux.skillflowai.users.core.domain.model.UserId;
-import com.primeux.skillflowai.users.core.ports.repositories.UserRepository;
+import com.primeux.skillflowai.users.business.domain.model.Email;
+import com.primeux.skillflowai.users.business.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.model.UserId;
+import com.primeux.skillflowai.users.business.ports.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

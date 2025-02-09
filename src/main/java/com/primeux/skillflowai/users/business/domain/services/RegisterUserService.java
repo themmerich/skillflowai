@@ -1,13 +1,13 @@
-package com.primeux.skillflowai.users.core.domain.services;
+package com.primeux.skillflowai.users.business.domain.services;
 
 import com.primeux.skillflowai.app.tenant.TenantContext;
 import com.primeux.skillflowai.shared.annotation.UseCase;
 import com.primeux.skillflowai.shared.exception.ValidationFailedException;
-import com.primeux.skillflowai.users.core.domain.model.*;
-import com.primeux.skillflowai.users.core.ports.repositories.OrganizationRepository;
-import com.primeux.skillflowai.users.core.ports.repositories.UserRepository;
-import com.primeux.skillflowai.users.core.ports.services.PasswordEncoding;
-import com.primeux.skillflowai.users.core.ports.usecases.RegisterUser;
+import com.primeux.skillflowai.users.business.domain.model.*;
+import com.primeux.skillflowai.users.business.ports.repositories.OrganizationRepository;
+import com.primeux.skillflowai.users.business.ports.repositories.UserRepository;
+import com.primeux.skillflowai.users.business.ports.services.PasswordEncoding;
+import com.primeux.skillflowai.users.business.ports.usecases.RegisterUser;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

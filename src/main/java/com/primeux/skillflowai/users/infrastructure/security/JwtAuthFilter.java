@@ -1,8 +1,8 @@
 package com.primeux.skillflowai.users.infrastructure.security;
 
 import com.primeux.skillflowai.app.tenant.TenantContext;
-import com.primeux.skillflowai.users.core.domain.model.Email;
-import com.primeux.skillflowai.users.core.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.model.Email;
+import com.primeux.skillflowai.users.business.domain.model.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

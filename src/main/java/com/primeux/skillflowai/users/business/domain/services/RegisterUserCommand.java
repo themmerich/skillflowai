@@ -1,4 +1,4 @@
-package com.primeux.skillflowai.users.core.domain.services;
+package com.primeux.skillflowai.users.business.domain.services;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

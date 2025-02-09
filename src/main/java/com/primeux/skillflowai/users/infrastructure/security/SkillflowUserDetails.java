@@ -1,6 +1,6 @@
 package com.primeux.skillflowai.users.infrastructure.security;
 
-import com.primeux.skillflowai.users.core.domain.model.User;
+import com.primeux.skillflowai.users.business.domain.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

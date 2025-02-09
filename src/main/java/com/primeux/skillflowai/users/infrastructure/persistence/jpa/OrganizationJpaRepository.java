@@ -1,7 +1,7 @@
 package com.primeux.skillflowai.users.infrastructure.persistence.jpa;
 
-import com.primeux.skillflowai.users.core.domain.model.Organization;
-import com.primeux.skillflowai.users.core.ports.repositories.OrganizationRepository;
+import com.primeux.skillflowai.users.business.domain.model.Organization;
+import com.primeux.skillflowai.users.business.ports.repositories.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.primeux.skillflowai.users.core.ports.usecases;
+package com.primeux.skillflowai.users.business.ports.usecases;
 
 import com.primeux.skillflowai.users.presentation.resources.LoginResponseDto;
 import com.primeux.skillflowai.users.presentation.resources.LoginUserDto;
