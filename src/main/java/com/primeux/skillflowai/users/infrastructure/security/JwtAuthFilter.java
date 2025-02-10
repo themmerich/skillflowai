@@ -82,8 +82,7 @@ class JwtAuthFilter extends OncePerRequestFilter {
         user.setEmail(Email.of(username));
         SkillflowUserDetails userDetails = new SkillflowUserDetails(user);
         List<String> authorities = jwtUtils.getAuthoritiesFromToken(token);
-        //TODO: OrganizationId (Mandantenkennung) in das Token aufnehmen und hier im Context setzen
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, authorities.stream().map(SimpleGrantedAuthority::new).toList());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities.stream().map(SimpleGrantedAuthority::new).toList());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         return authentication;
     }

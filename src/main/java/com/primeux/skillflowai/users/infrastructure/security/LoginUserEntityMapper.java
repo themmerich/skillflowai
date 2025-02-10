@@ -16,5 +16,6 @@ public interface LoginUserEntityMapper extends EntityMapper {
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "firstName", ignore = true)
     @Mapping(target = "lastName", ignore = true)
+    @Mapping(target = "birthday", ignore = true)
     User toUser(LoginUserEntity source);
 }

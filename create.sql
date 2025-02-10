@@ -17,6 +17,7 @@
     );
 
     create table skillflowai.user (
+        birthday date,
         id uuid not null,
         email varchar(255),
         first_name varchar(255),
@@ -25,3 +26,13 @@
         tenant_id varchar(255) not null,
         primary key (id)
     );
+
+    create table skillflowai.user_role (
+        user_id uuid not null,
+        role_id varchar(255)
+    );
+
+    alter table if exists skillflowai.user_role 
+       add constraint FK859n2jvi8ivhui0rl0esws6o 
+       foreign key (user_id) 
+       references skillflowai.user;

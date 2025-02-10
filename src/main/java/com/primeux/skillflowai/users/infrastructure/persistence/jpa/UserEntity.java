@@ -3,12 +3,12 @@ package com.primeux.skillflowai.users.infrastructure.persistence.jpa;
 import com.primeux.skillflowai.app.tenant.TenantAwareEntity;
 import com.primeux.skillflowai.app.tenant.TenantAwareEntityListener;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.TenantId;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -22,15 +22,18 @@ import java.util.UUID;
 public class UserEntity implements TenantAwareEntity {
     @Id
     private UUID id;
-    @NotBlank
     @TenantId
     private String tenantId;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
-    @Transient
-    private Set<RoleEntity> roles = new HashSet<>();
+    private LocalDate birthday;
+
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role_id")
+    private Set<String> roles = new HashSet<>();
 
 
 }

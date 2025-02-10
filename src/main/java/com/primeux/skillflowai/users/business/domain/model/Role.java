@@ -1,27 +1,24 @@
 package com.primeux.skillflowai.users.business.domain.model;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@RequiredArgsConstructor
 public class Role {
 
-    @Setter
-    private String name;
+    private final String name;
     private final Set<Permission> permissions = new HashSet<>();
 
-
-    public static Role createTestRole(String permission) {
-        Role role = new Role();
-        role.setName("Test");
-        role.getPermissions().add(createTestPermission(permission));
-        return role;
+    public void addPermission(Permission permission) {
+        permissions.add(permission);
     }
 
-    public static Permission createTestPermission(String permission) {
-        return new Permission(permission, "test: " + permission);
+    public void addPermissions(Collection<Permission> permissionsToAdd) {
+        permissions.addAll(permissionsToAdd);
     }
 }
