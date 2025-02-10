@@ -1,8 +1,8 @@
 package com.primeux.skillflowai.users.presentation.controller;
 
 import com.primeux.skillflowai.users.business.domain.model.User;
-import com.primeux.skillflowai.users.business.domain.services.RegisterUserCommand;
-import com.primeux.skillflowai.users.business.domain.services.RegisterUserService;
+import com.primeux.skillflowai.users.business.ports.usecases.RegisterUserUseCase;
+import com.primeux.skillflowai.users.business.ports.usecases.RegisterUserUseCase.RegisterUserCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final RegisterUserService registerUserService;
+    private final RegisterUserUseCase registerUserUseCase;
 
     @PostMapping("/register")
     @ResponseBody
     public User registerUser(@RequestBody RegisterUserCommand request) {
-        return registerUserService.register(request);
+        return registerUserUseCase.register(request);
     }
 }

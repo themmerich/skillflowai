@@ -28,28 +28,35 @@ class JwtUtils {
     private String secretKey;
 
     @Getter
-    @Value("${jwt.expiration_in_ms}")
-    private long expirationInMs;
+    @Value("${jwt.expiration_access_in_ms}")
+    private long expirationAccessInMs;
+
+    @Getter
+    @Value("${jwt.expiration_refresh_in_ms}")
+    private long expirationRefreshInMs;
 
 
-    public String generateToken(SkillflowUserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateRefreshToken(SkillflowUserDetails userDetails) {
+        return generateToken(addOrCreateDefaultClaims(userDetails), userDetails, expirationRefreshInMs);
     }
 
-    public String generateToken(Map<String, Object> claims, SkillflowUserDetails userDetails) {
-        return generateToken(claims, userDetails, expirationInMs);
+    public String generateAccessToken(SkillflowUserDetails userDetails) {
+        HashMap<String, Object> claims = addOrCreateDefaultClaims(userDetails);
+        claims.put(CLAIM_AUTHORITIES, userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+
+        return generateToken(claims, userDetails, expirationAccessInMs);
     }
 
-    private String generateToken(Map<String, Object> additionalClaims, SkillflowUserDetails userDetails, long expirationMs) {
-        if (additionalClaims == null) {
-            additionalClaims = new HashMap<>();
-        }
-        additionalClaims.put(CLAIM_AUTHORITIES, userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
-        additionalClaims.put(CLAIM_TENANT_ID, userDetails.getTenantId());
+    private HashMap<String, Object> addOrCreateDefaultClaims(SkillflowUserDetails userDetails) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put(CLAIM_TENANT_ID, userDetails.getTenantId());
+        return resultMap;
+    }
 
+    private String generateToken(Map<String, Object> claims, SkillflowUserDetails userDetails, long expirationMs) {
         return Jwts.builder()
                 .claims()
-                .add(additionalClaims)
+                .add(claims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationMs))
@@ -79,7 +86,7 @@ class JwtUtils {
     }
 
     public List<String> getAuthoritiesFromToken(String token) {
-        return extractAllClaims(token).get(CLAIM_AUTHORITIES, List.class);
+        return extractClaim(token, claims -> claims.get(CLAIM_AUTHORITIES, List.class));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {

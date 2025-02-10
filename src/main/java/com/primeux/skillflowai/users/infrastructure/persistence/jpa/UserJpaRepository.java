@@ -7,6 +7,7 @@ import com.primeux.skillflowai.users.business.ports.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -16,6 +17,10 @@ public class UserJpaRepository implements UserRepository {
     private final SpringDataUserJpaRepository userJpaRepository;
     private final UserEntityMapper userEntityMapper;
 
+    @Override
+    public List<User> findAll() {
+        return userJpaRepository.findAll().stream().map(userEntityMapper::toUser).toList();
+    }
 
     @Override
     public Optional<User> findById(UserId userId) {

@@ -4,9 +4,12 @@ import com.primeux.skillflowai.users.business.domain.model.Email;
 import com.primeux.skillflowai.users.business.domain.model.User;
 import com.primeux.skillflowai.users.business.domain.model.UserId;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
+
+    List<User> findAll();
 
     Optional<User> findById(UserId userId);
 
